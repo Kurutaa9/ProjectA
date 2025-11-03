@@ -11,23 +11,42 @@ public class Bullet : MonoBehaviour
         // move along the bullet's facing (Z) every frame
         transform.position += transform.forward * speed * Time.deltaTime;
     }
-    
+
+    // Called when using NON-trigger colliders (isTrigger = false)
     void OnCollisionEnter(Collision collision)
     {
+        Vector3 hitPoint = collision.contacts.Length > 0
+            ? collision.contacts[0].point
+            : collision.transform.position;
+
+        HandleHit(collision.gameObject, hitPoint);
+    }
+
+    // Called when using trigger colliders (isTrigger = true)
+    void OnTriggerEnter(Collider other)
+    {
+        Vector3 hitPoint = other.ClosestPoint(transform.position);
+        HandleHit(other.gameObject, hitPoint);
+    }
+
+    void HandleHit(GameObject hitObject, Vector3 hitPoint)
+    {
         // Ignore hitting the player
-        if (collision.gameObject.CompareTag("Player")) return;
+        if (hitObject.CompareTag("Player")) return;
 
         // When it hits an enemy
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (hitObject.CompareTag("Enemy"))
         {
             // Spawn explosion effect at the collision point
             if (explosionPrefab != null)
             {
-                Instantiate(explosionPrefab, collision.transform.position, Quaternion.identity);
+                // small offset so it’s not inside the floor
+                Vector3 spawnPos = hitPoint + Vector3.up * 0.05f;
+                Instantiate(explosionPrefab, spawnPos, Quaternion.identity);
             }
 
             // Destroy the enemy
-            Destroy(collision.gameObject);
+            Destroy(hitObject);
         }
 
         // Destroy the bullet after collision
