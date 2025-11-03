@@ -60,47 +60,56 @@ public class Shooting : MonoBehaviour
     {
         if (!bulletPrefab || !muzzleTransform || !yawSource) return;
 
-        // 1️⃣ Get flat forward direction
-        Vector3 dir = yawSource.forward;
-        dir.y = 0f;
-        dir.Normalize();
+        // Flat forward direction from player
+        Vector3 dir = yawSource.forward; dir.y = 0f; dir.Normalize();
 
-        // 2️⃣ Compute chest-level spawn position
+        // Chest-level spawn position
         Vector3 spawnPos = muzzleTransform.position;
         spawnPos.y = yawSource.position.y + chestHeightOffset;
         spawnPos += dir * spawnOffset;
 
-        // 3️⃣ Instantiate bullet
-        Quaternion rot = Quaternion.LookRotation(dir, Vector3.up) * Quaternion.Euler(0f, 90f, 0f);
+        // Rotation (with your 90° fix)
+        Quaternion rot = Quaternion.LookRotation(dir, Vector3.up) ;
+
         GameObject b = Instantiate(bulletPrefab, spawnPos, rot);
+        b.transform.SetParent(null, true); // be 100% sure it's not parented
 
-        // 4️⃣ Ensure Rigidbody exists and is not kinematic
+        // Remove trail if any
+        var trail = b.GetComponent<TrailRenderer>();
+        if (trail) Destroy(trail);
+
+        // --------- Ensure Rigidbody exists and is usable ----------
+        // find RB even if it's on a child
         Rigidbody rb = b.GetComponent<Rigidbody>();
-        if (rb)
-        {
-            rb.isKinematic = false;      // ✅ important — must be false
-            rb.useGravity = false;       // no falling
-            rb.velocity = dir * bulletSpeed; // ✅ move forward
-        }
-        else
-        {
-            Debug.LogWarning("Bullet prefab has no Rigidbody component!");
-        }
+        if (!rb) rb = b.GetComponentInChildren<Rigidbody>();
 
-        // 5️⃣ Ignore shooter collisions
-        Collider bulletCol = b.GetComponent<Collider>();
+        if (!rb)
+        {
+            // add one if prefab didn't have it
+            rb = b.AddComponent<Rigidbody>();
+        }
+        // make sure physics won't block motion
+        rb.isKinematic = false;
+        rb.useGravity = false;
+        rb.drag = 0f;
+        rb.angularDrag = 0f;
+        rb.constraints = RigidbodyConstraints.None;
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+
+        // Give it velocity (VelocityChange ignores mass)
+        rb.velocity = Vector3.zero; // reset any leftover
+        rb.AddForce(dir * bulletSpeed, ForceMode.VelocityChange);
+
+        // --------- Ignore collisions with the shooter ----------
+        var bulletCol = b.GetComponent<Collider>();
+        if (!bulletCol) bulletCol = b.GetComponentInChildren<Collider>();
         if (bulletCol)
         {
             foreach (var c in shooterCols)
                 if (c) Physics.IgnoreCollision(bulletCol, c, true);
         }
 
-        // 6️⃣ Optional: clean up trail
-        var trail = b.GetComponent<TrailRenderer>();
-        if (trail) Destroy(trail);
-
-        // 7️⃣ Destroy after lifetime
         Destroy(b, bulletLifetime);
     }
-
 }

@@ -4,7 +4,14 @@ public class Bullet : MonoBehaviour
 {
     [Header("Explosion Effect")]
     public GameObject explosionPrefab; // assign explosion particle prefab here
+    public float speed = 10f;
 
+    void Update()
+    {
+        // move along the bullet's facing (Z) every frame
+        transform.position += transform.forward * speed * Time.deltaTime;
+    }
+    
     void OnCollisionEnter(Collision collision)
     {
         // Ignore hitting the player
