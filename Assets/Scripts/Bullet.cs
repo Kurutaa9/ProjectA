@@ -4,6 +4,7 @@ public class Bullet : MonoBehaviour
 {
     [Header("Explosion Effect")]
     public GameObject explosionPrefab; // assign explosion particle prefab here
+    public AudioClip explosionSound;   // assign your explosion.mp3 here
     public float speed = 10f;
 
     void Update()
@@ -12,7 +13,6 @@ public class Bullet : MonoBehaviour
         transform.position += transform.forward * speed * Time.deltaTime;
     }
 
-    // Called when using NON-trigger colliders (isTrigger = false)
     void OnCollisionEnter(Collision collision)
     {
         Vector3 hitPoint = collision.contacts.Length > 0
@@ -20,13 +20,6 @@ public class Bullet : MonoBehaviour
             : collision.transform.position;
 
         HandleHit(collision.gameObject, hitPoint);
-    }
-
-    // Called when using trigger colliders (isTrigger = true)
-    void OnTriggerEnter(Collider other)
-    {
-        Vector3 hitPoint = other.ClosestPoint(transform.position);
-        HandleHit(other.gameObject, hitPoint);
     }
 
     void HandleHit(GameObject hitObject, Vector3 hitPoint)
@@ -37,12 +30,16 @@ public class Bullet : MonoBehaviour
         // When it hits an enemy
         if (hitObject.CompareTag("Enemy"))
         {
-            // Spawn explosion effect at the collision point
+            // Spawn explosion effect
             if (explosionPrefab != null)
             {
-                // small offset so it’s not inside the floor
-                Vector3 spawnPos = hitPoint + Vector3.up * 0.05f;
-                Instantiate(explosionPrefab, spawnPos, Quaternion.identity);
+                Instantiate(explosionPrefab, hitPoint, Quaternion.identity);
+            }
+
+            // Play explosion sound (temporary AudioSource)
+            if (explosionSound != null)
+            {
+                AudioSource.PlayClipAtPoint(explosionSound, hitPoint);
             }
 
             // Destroy the enemy

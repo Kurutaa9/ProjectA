@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionPrefab: {fileID: 6841108671001156539, guid: e2f823f83b97df74bb92b1df71fc7a7b, type: 3}
+  explosionSound: {fileID: 8300000, guid: ab86bd82ffa6d644785b440c634ae350, type: 3}
   speed: 10
 --- !u!54 &8957802319105103570
 Rigidbody:
