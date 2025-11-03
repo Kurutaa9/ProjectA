@@ -968,6 +968,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3876009011148254971}
   - component: {fileID: 3876009011138691335}
+  - component: {fileID: 1996119411584288566}
   m_Layer: 0
   m_Name: Man_Mafia_Rig
   m_TagString: Untagged
@@ -1012,6 +1013,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1996119411584288566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3876009011148223195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b68d29a664ee3940b83427c2b7e909f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3876009011148223197
 GameObject:
   m_ObjectHideFlags: 0
