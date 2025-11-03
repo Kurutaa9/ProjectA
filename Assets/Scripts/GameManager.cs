@@ -31,11 +31,14 @@ public class GameManager : MonoBehaviour
         // {
         //     Destroy(gameObject);
         // }
-
+        heart = GameObject.FindGameObjectWithTag("Heart").GetComponent<Renderer>();
+        // levelText = GameObject.FindGameObjectWithTag("LevelText").GetComponent<TextMeshProUGUI>();
     }
-
+    
     public void updateValues()
     {
+        if (!heart) return;
+        heart = GameObject.FindGameObjectWithTag("Heart").GetComponent<Renderer>();
         switch (PersistentManager.Instance.health)
         {
             case 1:
@@ -99,6 +102,10 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+
+        heart = GameObject.FindGameObjectWithTag("Heart").GetComponent<Renderer>();
+
+        if (!heart) return;
         updateValues();
     }
 

@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - HealthTag
   - Heals
+  - Heart
+  - LevelText
   layers:
   - Default
   - TransparentFX
