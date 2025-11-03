@@ -1,5 +1,9 @@
 using UnityEngine;
 using TMPro;
+using System;
+using System.Threading.Tasks;
+using System.Collections;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -53,6 +57,29 @@ public class GameManager : MonoBehaviour
         Debug.Log(levelString + PersistentManager.Instance.levelId.ToString());
     }
 
+    public void Schedule(float time, Action action)
+    {
+        StartCoroutine(ScheduleRoutine(time, action));
+        Debug.Log("in shceudler");
+    }
+
+    private IEnumerator ScheduleRoutine(float time, Action action)
+    {
+        Debug.Log("waiting");
+        yield return new WaitForSecondsRealtime(time);
+
+        Debug.Log("waited");
+        action();
+    }
+
+    public void changeLevel(int levelId)
+    {
+        string levelnow = "level";
+        levelnow += levelId.ToString(); //concate "level" with "1" or other number
+        SceneManager.LoadScene(levelnow);//load it using the new string "level1"
+        PersistentManager.Instance.levelId = levelId; // update manager's levelid
+    }
+    
     void Update()
     {
         if (PersistentManager.Instance.updateRequest)
@@ -61,6 +88,13 @@ public class GameManager : MonoBehaviour
             Debug.Log("UpdateRequest called!");
             updateValues();
             PersistentManager.Instance.updateRequest = false;
+        }
+        if (PersistentManager.Instance.died)
+        {
+            PersistentManager.Instance.died = false;
+
+            Schedule(5f, () => changeLevel(PersistentManager.Instance.levelId));//change level using helper above
+            Schedule(5f, () => PersistentManager.Instance.health = 3);//change level using helper above
         }
     }
     void Start()

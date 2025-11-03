@@ -2,7 +2,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
-
+using System.Threading.Tasks;
+using System.Collections;
+using System;
+// using System.Numerics;
 public class Navigation : MonoBehaviour
 {
     private NavMeshAgent agent;
@@ -44,6 +47,8 @@ public class Navigation : MonoBehaviour
         }
     }
 
+    
+
     void Explode()
     {
         if (hasExploded) return;
@@ -70,19 +75,22 @@ public class Navigation : MonoBehaviour
         if (player != null)
         {
 
-            if (PersistentManager.Instance.health > 0)
+            if (PersistentManager.Instance.health > 1)
             {
                 Debug.Log("Player is hit!");
                 PersistentManager.Instance.health -= 1;
                 PersistentManager.Instance.updateRequest = true;
             }
 
+            
             else //else when health is 0 restart the level
             {
+                PersistentManager.Instance.health -= 1;
+                PersistentManager.Instance.updateRequest = true;
+                PersistentManager.Instance.died = true;
                 Destroy(player.gameObject, killDelay);
-                string levelstring = "level";
-                levelstring += PersistentManager.Instance.levelId;
-                SceneManager.LoadScene(levelstring);
+
+
             }
             
 

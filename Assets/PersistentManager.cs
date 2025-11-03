@@ -16,6 +16,8 @@ public class PersistentManager : MonoBehaviour
 
     public bool updateRequest = false;
 
+    public bool died = false;
+
     void Awake()
     {
         if (!Instance)
