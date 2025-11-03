@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -8,17 +8,49 @@ public class GameManager : MonoBehaviour
 
     private int enemiesAlive = 0;
 
+    public Renderer heart; //debug
+    public Color redColor = Color.red;
+    public Color blueColor = Color.blue;
+    public Color greenColor = Color.green;
+
+    public string levelString = "Level ";
+    public TextMeshProUGUI levelText;
+
     void Awake()
     {
         // simple singleton
-        if (Instance == null)
+        // if (Instance == null)
+        // {
+        //     Instance = this;
+        // }
+        // else
+        // {
+        //     Destroy(gameObject);
+        // }
+
+    }
+    
+    void Start()
+    {
+        switch (PersistentManager.Instance.health)
         {
-            Instance = this;
+            case 1:
+                heart.material.color = redColor;
+                break;
+            case 2:
+                heart.material.color = blueColor;
+                break;
+            case 3:
+                heart.material.color = greenColor;
+                break;
+            default:
+                Debug.Log("health not found/error");
+                heart.material.color = Color.black;
+                break;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+
+        levelText.text = levelString + PersistentManager.Instance.levelId.ToString();// "level " + "1"
+        Debug.Log(levelString + PersistentManager.Instance.levelId.ToString());
     }
 
     public void RegisterEnemy()

@@ -144,18 +144,27 @@ public class PlayerMovement : MonoBehaviour
     public void OnLevelone()
     {
         Debug.Log("LEVEL 1 DEBUG PRESSED!");
-        SceneManager.LoadScene("level1");
+        changeLevel(1);
         // heart.material.color = greenColor;
     }
     public void OnLeveltwo()
     {
         Debug.Log("LEVEL 2 DEBUG PRESSED!");
-        SceneManager.LoadScene("level2");
+        changeLevel(2);
     }
-    
+
     public void OnLevelthree()
     {
         Debug.Log("LEVEL 3 DEBUG PRESSED!");
+        changeLevel(3);
         // SceneManager.LoadScene("level3");
+    }
+
+    public void changeLevel(int levelId)
+    {
+        string levelnow = "level";
+        levelnow += levelId.ToString(); //concate "level" with "1" or other number
+        SceneManager.LoadScene(levelnow);//load it using the new string "level1"
+        PersistentManager.Instance.levelId = levelId; // update manager's levelid
     }
 }
