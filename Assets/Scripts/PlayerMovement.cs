@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     public Color blueColor = Color.blue;
     public Color greenColor = Color.green;
 
+
+    public AudioClip healSound;
     void Start()
     {
         rb = GetComponent<CharacterController>();
@@ -166,5 +168,22 @@ public class PlayerMovement : MonoBehaviour
         levelnow += levelId.ToString(); //concate "level" with "1" or other number
         SceneManager.LoadScene(levelnow);//load it using the new string "level1"
         PersistentManager.Instance.levelId = levelId; // update manager's levelid
+    }
+
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Heals"))
+        {
+            if (PersistentManager.Instance.health < 3)
+            {
+                Debug.Log("heal picked up!");
+                AudioSource.PlayClipAtPoint(healSound, other.transform.position);
+                PersistentManager.Instance.health += 1;
+                PersistentManager.Instance.updateRequest = true;
+                Destroy(other.gameObject);
+            }
+
+        }
     }
 }

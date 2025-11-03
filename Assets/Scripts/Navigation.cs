@@ -1,5 +1,7 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class Navigation : MonoBehaviour
 {
@@ -67,7 +69,24 @@ public class Navigation : MonoBehaviour
         // Kill the player (simple version: destroy the GameObject)
         if (player != null)
         {
-            Destroy(player.gameObject, killDelay);
+
+            if (PersistentManager.Instance.health > 0)
+            {
+                Debug.Log("Player is hit!");
+                PersistentManager.Instance.health -= 1;
+                PersistentManager.Instance.updateRequest = true;
+            }
+
+            else //else when health is 0 restart the level
+            {
+                Destroy(player.gameObject, killDelay);
+                string levelstring = "level";
+                levelstring += PersistentManager.Instance.levelId;
+                SceneManager.LoadScene(levelstring);
+            }
+            
+
+            
         }
 
         // Kill this enemy

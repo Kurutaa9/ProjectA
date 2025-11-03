@@ -29,8 +29,8 @@ public class GameManager : MonoBehaviour
         // }
 
     }
-    
-    void Start()
+
+    public void updateValues()
     {
         switch (PersistentManager.Instance.health)
         {
@@ -51,6 +51,21 @@ public class GameManager : MonoBehaviour
 
         levelText.text = levelString + PersistentManager.Instance.levelId.ToString();// "level " + "1"
         Debug.Log(levelString + PersistentManager.Instance.levelId.ToString());
+    }
+
+    void Update()
+    {
+        if (PersistentManager.Instance.updateRequest)
+        {
+
+            Debug.Log("UpdateRequest called!");
+            updateValues();
+            PersistentManager.Instance.updateRequest = false;
+        }
+    }
+    void Start()
+    {
+        updateValues();
     }
 
     public void RegisterEnemy()
@@ -81,4 +96,6 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0f;
     }
+
+    
 }

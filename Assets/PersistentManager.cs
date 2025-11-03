@@ -14,7 +14,7 @@ public class PersistentManager : MonoBehaviour
 
     public int score = 0;
 
-    
+    public bool updateRequest = false;
 
     void Awake()
     {
