@@ -14,7 +14,6 @@
   <Project Path="Unity.PlasticSCM.Editor.csproj" />
   <Project Path="Unity.VisualScripting.Core.Editor.csproj" />
   <Project Path="Unity.VisualScripting.Flow.Editor.csproj" />
-  <Project Path="Unity.TerrainTools.Editor.csproj" />
   <Project Path="Unity.VisualStudio.Editor.csproj" />
   <Project Path="Unity.Timeline.Editor.csproj" />
   <Project Path="com.unity.cinemachine.editor.csproj" />
@@ -33,4 +32,5 @@
   <Project Path="Unity.CollabProxy.Editor.csproj" />
   <Project Path="Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.csproj" />
   <Project Path="Unity.VisualScripting.Shared.Editor.csproj" />
+  <Project Path="Unity.TerrainTools.Editor.csproj" />
 </Solution>

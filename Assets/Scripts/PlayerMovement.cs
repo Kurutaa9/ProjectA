@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,10 +21,15 @@ public class PlayerMovement : MonoBehaviour
 
     private Animator animator;
 
+    public Renderer heart; //debug
+    public Color redColor = Color.red;
+    public Color blueColor = Color.blue;
+    public Color greenColor = Color.green;
+
     void Start()
     {
         rb = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>(); 
+        animator = GetComponent<Animator>();
     }
 
     void OnEnable()
@@ -106,4 +112,50 @@ public class PlayerMovement : MonoBehaviour
         nowDirection.y = Mathf.Round(nowDirection.y * 10000f) / 10000f;
     }
     #endregion
+
+    //heart debug
+    //debug red color (1)
+    public void OnDebugs()
+    {
+        Debug.Log("HEART IS NOW RED");
+        heart.material.color = redColor;
+
+    }
+    //debug blue color (2)
+    public void OnDebugs2()
+    {
+        // if (!ctx.performed) return;
+        Debug.Log("HEART IS NOW BLUE");
+
+        heart.material.color = blueColor;
+
+
+    }
+    //debug green color (3)
+    public void OnDebugs3()
+    {
+        // if (!ctx.performed) return;
+        Debug.Log("HEART IS NOW GREEN");
+
+        heart.material.color = greenColor;
+
+    }
+
+    public void OnLevelone()
+    {
+        Debug.Log("LEVEL 1 DEBUG PRESSED!");
+        SceneManager.LoadScene("level1");
+        // heart.material.color = greenColor;
+    }
+    public void OnLeveltwo()
+    {
+        Debug.Log("LEVEL 2 DEBUG PRESSED!");
+        SceneManager.LoadScene("level2");
+    }
+    
+    public void OnLevelthree()
+    {
+        Debug.Log("LEVEL 3 DEBUG PRESSED!");
+        // SceneManager.LoadScene("level3");
+    }
 }
