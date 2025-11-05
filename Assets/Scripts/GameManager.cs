@@ -104,8 +104,9 @@ public class GameManager : MonoBehaviour
         {
             PersistentManager.Instance.died = false;
             Destroy(player.gameObject);
-            Schedule(5f, () => changeLevel(PersistentManager.Instance.levelId));//change level using helper above
-            Schedule(5f, () => PersistentManager.Instance.health = 3);//change level using helper above
+            // Schedule(5f, () => changeLevel(PersistentManager.Instance.levelId));//change level using helper above
+            // Schedule(5f, () => PersistentManager.Instance.health = 3);//change level using helper above
+            Schedule(5f, () => SceneManager.LoadScene("main_Menu"));
         }
 
         if(PersistentManager.Instance.enemyAmountPersistent <= 0)
@@ -129,12 +130,12 @@ public class GameManager : MonoBehaviour
             case 2:
                 Debug.Log("Persistent Manager has 6 enemys");
 
-                PersistentManager.Instance.enemyAmountPersistent = 6;
+                PersistentManager.Instance.enemyAmountPersistent = 8;
                 break;
             case 3:
-                Debug.Log("Persistent Manager has 7 enemys");
+                Debug.Log("Persistent Manager has 5 enemys");
 
-                PersistentManager.Instance.enemyAmountPersistent = 8;
+                PersistentManager.Instance.enemyAmountPersistent = 10;
                 break;
         }
         updateValues();

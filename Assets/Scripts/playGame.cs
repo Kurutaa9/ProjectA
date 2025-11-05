@@ -19,5 +19,6 @@ public class playGame : MonoBehaviour
 
     public void loadScene(){
         SceneManager.LoadScene("level1");
+        PersistentManager.Instance.health = 3;
     }
 }

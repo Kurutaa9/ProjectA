@@ -26,7 +26,8 @@ public class Bullet : MonoBehaviour
     {
         // Ignore hitting the player
         if (hitObject.CompareTag("Player")) return;
-        
+
+        GameObject root = hitObject.transform.root.gameObject;
         // When it hits an enemy
         if (hitObject.CompareTag("Enemy") | hitObject.CompareTag("Mafia"))
         {
