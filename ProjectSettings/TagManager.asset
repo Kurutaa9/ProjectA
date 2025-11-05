@@ -9,6 +9,8 @@ TagManager:
   - Heals
   - Heart
   - LevelText
+  - Mafia
+  - Bullet
   layers:
   - Default
   - TransparentFX

@@ -20,6 +20,9 @@ public class Navigation : MonoBehaviour
 
     private bool hasExploded = false;
 
+    public float chaseRange = 10f;   // how far to start chasing
+    public float stopDistance = 3f;  // how close before stopping
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -30,8 +33,35 @@ public class Navigation : MonoBehaviour
     {
         if (player == null || hasExploded) return;
 
+        if (agent.CompareTag("Mafia"))
+        {
+            float distance = Vector3.Distance(transform.position, player.position);
+
+            // Start chasing if within chase range but not too close
+            if (distance < chaseRange && distance > stopDistance)
+            {
+                agent.isStopped = false;
+                agent.SetDestination(player.position);
+            }
+            else
+            {
+                agent.isStopped = true;  // stops movement
+            }
+        }
         // Chase the player
-        agent.SetDestination(player.position);
+        else
+        {
+            agent.SetDestination(player.position);
+        }
+        
+        Vector3 direction = player.position - transform.position;
+        direction.y = 0f; // keep the rotation flat on the ground
+        if (direction != Vector3.zero)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 10f * Time.deltaTime);
+        }
+
 
         // Update run/walk animation
         if (animator != null)
@@ -78,17 +108,14 @@ public class Navigation : MonoBehaviour
             if (PersistentManager.Instance.health > 1)
             {
                 Debug.Log("Player is hit!");
-                PersistentManager.Instance.health -= 1;
-                PersistentManager.Instance.updateRequest = true;
+                PersistentManager.Instance.updateHealth(1);
             }
 
             
             else //else when health is 0 restart the level
             {
-                PersistentManager.Instance.health -= 1;
-                PersistentManager.Instance.updateRequest = true;
-                PersistentManager.Instance.died = true;
-                Destroy(player.gameObject, killDelay);
+                PersistentManager.Instance.updateHealth(1); //decrease health by 1 and call updatevalue
+                // PersistentManager.Instance.died = true;
 
 
             }

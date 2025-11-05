@@ -25,10 +25,10 @@ public class Bullet : MonoBehaviour
     void HandleHit(GameObject hitObject, Vector3 hitPoint)
     {
         // Ignore hitting the player
-        if (hitObject.CompareTag("Player")) return;
+        // if (hitObject.CompareTag("Player")) return;
 
         // When it hits an enemy
-        if (hitObject.CompareTag("Enemy"))
+        if (hitObject.CompareTag("Enemy") | hitObject.CompareTag("Mafia"))
         {
             // Spawn explosion effect
             if (explosionPrefab != null)
@@ -40,6 +40,7 @@ public class Bullet : MonoBehaviour
             if (explosionSound != null)
             {
                 AudioSource.PlayClipAtPoint(explosionSound, hitPoint);
+                PersistentManager.Instance.updateEnemyAmount(1); //decrement enemy amount by 1
             }
 
             // Destroy the enemy
