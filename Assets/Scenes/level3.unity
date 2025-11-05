@@ -475,6 +475,7 @@ MonoBehaviour:
   greenColor: {r: 0, g: 1, b: 0, a: 1}
   levelString: 'Level '
   levelText: {fileID: 1226460129}
+  player: {fileID: 464614298}
 --- !u!4 &428762034
 Transform:
   m_ObjectHideFlags: 0
@@ -1156,6 +1157,8 @@ MonoBehaviour:
   explosionSound: {fileID: 8300000, guid: ab86bd82ffa6d644785b440c634ae350, type: 3}
   explodeDistance: 1.5
   killDelay: 0
+  chaseRange: 10
+  stopDistance: 3
 --- !u!195 &712843173
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1523,6 +1526,8 @@ MonoBehaviour:
   explosionSound: {fileID: 8300000, guid: ab86bd82ffa6d644785b440c634ae350, type: 3}
   explodeDistance: 1.5
   killDelay: 0
+  chaseRange: 10
+  stopDistance: 3
 --- !u!195 &970068778
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1717,6 +1722,8 @@ MonoBehaviour:
   explosionSound: {fileID: 8300000, guid: ab86bd82ffa6d644785b440c634ae350, type: 3}
   explodeDistance: 1.5
   killDelay: 0
+  chaseRange: 10
+  stopDistance: 3
 --- !u!136 &1149980536
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2488,6 +2495,7 @@ MonoBehaviour:
   greenColor: {r: 0, g: 1, b: 0, a: 1}
   levelString: 'Level '
   levelText: {fileID: 0}
+  player: {fileID: 0}
 --- !u!4 &1481478232
 Transform:
   m_ObjectHideFlags: 0
@@ -2729,6 +2737,8 @@ MonoBehaviour:
   explosionSound: {fileID: 8300000, guid: ab86bd82ffa6d644785b440c634ae350, type: 3}
   explodeDistance: 1.5
   killDelay: 0
+  chaseRange: 10
+  stopDistance: 3
 --- !u!195 &1563603860
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3090,6 +3100,9 @@ MonoBehaviour:
   score: 0
   updateRequest: 0
   died: 0
+  hurtSound: {fileID: 0}
+  diedSound: {fileID: 0}
+  enemyAmountPersistent: 0
 --- !u!4 &1868651368
 Transform:
   m_ObjectHideFlags: 0
@@ -3164,6 +3177,8 @@ MonoBehaviour:
   explosionSound: {fileID: 8300000, guid: ab86bd82ffa6d644785b440c634ae350, type: 3}
   explodeDistance: 1.5
   killDelay: 0
+  chaseRange: 10
+  stopDistance: 3
 --- !u!195 &2080354555
 NavMeshAgent:
   m_ObjectHideFlags: 0

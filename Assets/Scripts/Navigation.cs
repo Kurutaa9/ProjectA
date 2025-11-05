@@ -115,7 +115,7 @@ public class Navigation : MonoBehaviour
             else //else when health is 0 restart the level
             {
                 PersistentManager.Instance.updateHealth(1); //decrease health by 1 and call updatevalue
-                // PersistentManager.Instance.died = true;
+                PersistentManager.Instance.died = true;
 
 
             }

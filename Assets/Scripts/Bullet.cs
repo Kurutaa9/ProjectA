@@ -25,8 +25,8 @@ public class Bullet : MonoBehaviour
     void HandleHit(GameObject hitObject, Vector3 hitPoint)
     {
         // Ignore hitting the player
-        // if (hitObject.CompareTag("Player")) return;
-
+        if (hitObject.CompareTag("Player")) return;
+        
         // When it hits an enemy
         if (hitObject.CompareTag("Enemy") | hitObject.CompareTag("Mafia"))
         {
@@ -44,7 +44,7 @@ public class Bullet : MonoBehaviour
             }
 
             // Destroy the enemy
-            Destroy(hitObject);
+            Destroy(hitObject.gameObject);
         }
 
         // Destroy the bullet after collision
