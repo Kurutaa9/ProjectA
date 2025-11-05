@@ -109,6 +109,8 @@ public class GameManager : MonoBehaviour
             Destroy(player.gameObject);
             // Schedule(5f, () => changeLevel(PersistentManager.Instance.levelId));//change level using helper above
             // Schedule(5f, () => PersistentManager.Instance.health = 3);//change level using helper above
+            PersistentManager.Instance.health = 3;
+            PersistentManager.Instance.levelId = 1;
             Schedule(5f, () => SceneManager.LoadScene("main_Menu"));
             Schedule(5f, () => diedConfirm = false);
             
