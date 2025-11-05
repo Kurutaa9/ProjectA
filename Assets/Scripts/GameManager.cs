@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
 
     public Transform player;
 
+    public bool diedConfirm = false;
+
     void Awake()
     {
         // simple singleton
@@ -103,16 +105,20 @@ public class GameManager : MonoBehaviour
         if (PersistentManager.Instance.died)
         {
             PersistentManager.Instance.died = false;
+            diedConfirm = true;
             Destroy(player.gameObject);
             // Schedule(5f, () => changeLevel(PersistentManager.Instance.levelId));//change level using helper above
             // Schedule(5f, () => PersistentManager.Instance.health = 3);//change level using helper above
             Schedule(5f, () => SceneManager.LoadScene("main_Menu"));
+            Schedule(5f, () => diedConfirm = false);
+            
         }
-
-        if(PersistentManager.Instance.enemyAmountPersistent <= 0)
+        if(PersistentManager.Instance.enemyAmountPersistent <= 0 && !diedConfirm) //if no die we win, but if die and win we choose die
         {
+            Debug.Log("died is: " + PersistentManager.Instance.died);
             OnAllEnemiesDead();
         }
+
 
     }
     void Start()
@@ -161,7 +167,7 @@ public class GameManager : MonoBehaviour
     void OnAllEnemiesDead()
     {
         Debug.Log("YOU WIN!");
-
+    
         if (winPanel != null)
         {
             winPanel.SetActive(true);
@@ -174,6 +180,7 @@ public class GameManager : MonoBehaviour
             {
                 // changeLevel(PersistentManager.Instance.levelId += 1); // 1->2, 2->3 
                 Schedule(3f, () => changeLevel(PersistentManager.Instance.levelId += 1));
+                
 
             }
         }

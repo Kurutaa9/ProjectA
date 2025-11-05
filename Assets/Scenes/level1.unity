@@ -694,7 +694,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ae36078897b805945b4916cf3a168bfc, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.014
+  m_Volume: 0.07
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -915,6 +915,7 @@ MonoBehaviour:
   levelString: 'Level '
   levelText: {fileID: 386076178}
   player: {fileID: 696419234}
+  diedConfirm: 0
 --- !u!4 &207083803
 Transform:
   m_ObjectHideFlags: 0
@@ -3521,7 +3522,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 831864988}
   m_LocalRotation: {x: 0.48208416, y: 0.000000005572571, z: -0.0000000030662841, w: 0.876125}
-  m_LocalPosition: {x: 0.15999997, y: 18.292, z: -9.92}
+  m_LocalPosition: {x: 27.571644, y: 17.652, z: 20.259085}
   m_LocalScale: {x: 1, y: 0.097759545, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3562,8 +3563,11 @@ MonoBehaviour:
   score: 0
   updateRequest: 0
   died: 0
-  hurtSound: {fileID: 0}
-  diedSound: {fileID: 0}
+  winBool: 0
+  hurtSound: {fileID: 8300000, guid: df2979891e0e8124db33a8798bd47de2, type: 3}
+  diedSound: {fileID: 8300000, guid: ab86bd82ffa6d644785b440c634ae350, type: 3}
+  soundVolume: 20
+  damageParticle: {fileID: 6841108671001156539, guid: acd7e692e02ccc74bb9efb2397e92183, type: 3}
   enemyAmountPersistent: 0
 --- !u!4 &852146938
 Transform:
@@ -4226,11 +4230,11 @@ RectTransform:
   m_Father: {fileID: 1419885748}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 264.5, y: -264.1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &995911796
 MonoBehaviour:
   m_ObjectHideFlags: 0

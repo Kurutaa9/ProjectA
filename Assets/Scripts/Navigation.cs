@@ -82,6 +82,8 @@ public class Navigation : MonoBehaviour
     void Explode()
     {
         if (hasExploded) return;
+
+
         hasExploded = true;
 
         // Stop moving
@@ -104,7 +106,7 @@ public class Navigation : MonoBehaviour
         // Kill the player (simple version: destroy the GameObject)
         if (player != null)
         {
-            PersistentManager.Instance.updateEnemyAmount(2);
+            
             if (PersistentManager.Instance.health > 1)
             {
                 Debug.Log("Player is hit!");
@@ -119,6 +121,7 @@ public class Navigation : MonoBehaviour
 
 
             }
+            PersistentManager.Instance.updateEnemyAmount(2);
             
 
             

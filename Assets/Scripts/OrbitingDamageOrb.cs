@@ -48,12 +48,14 @@ public class OrbitingDamageOrb : MonoBehaviour
             rb.AddForce(dir * knockbackForce, knockbackMode);
         }
 
-        if (PersistentManager.Instance.health <= 1)
+        if (PersistentManager.Instance.health > 1)
         {
+            Debug.Log("player hit by katana! once!");
             PersistentManager.Instance.updateHealth(1);
         }
         else
         {
+            Debug.Log("player hit and will die by katana!");
             PersistentManager.Instance.updateHealth(1);
             PersistentManager.Instance.died = true;
         }
